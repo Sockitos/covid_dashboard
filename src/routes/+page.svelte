@@ -10,23 +10,46 @@
 	import Slider from '$lib/components/Slider.svelte';
 	import Toggle from '$lib/components/Toggle.svelte';
 	import TypeSelector from '$lib/components/TypeSelector.svelte';
-	import { configs, DataType } from '$lib/constants';
+	import { configs, DataType, type MapConfig } from '$lib/constants';
 
 	export let data;
 
-	const minDate = new Date(2020, 8, 1);
-	const maxDate = new Date(2021, 6, 18);
-
 	const dateToIndex = (date: Date): number => {
 		var millis = date.valueOf();
-		return (millis - minDate.valueOf()) / 86400000;
+		return (millis - data.minDate.valueOf()) / 86400000;
 	};
 
-	let date = minDate;
+	const getChartData = (type: DataType): number[] => {
+		switch (type) {
+			case DataType.RISK:
+				return data.risk.chart;
+			case DataType.UNCERTAINTY:
+				return data.iqd.chart;
+			case DataType.PROBABILITY:
+				return data.prob.chart;
+		}
+	};
+
+	const getPixelData = (type: DataType): number[][] => {
+		switch (type) {
+			case DataType.RISK:
+				return data.risk.pixels;
+			case DataType.UNCERTAINTY:
+				return data.iqd.pixels;
+			case DataType.PROBABILITY:
+				return data.prob.pixels;
+		}
+	};
+
+	const getConfig = (type: DataType): MapConfig => {
+		return configs[type];
+	};
+
+	let date = data.minDate;
 	let dateIndex = dateToIndex(date);
 	let type = DataType.RISK;
-	let pixelsData = type == DataType.RISK ? data.risk.pixels : data.iqd.pixels;
-	let chartData = type == DataType.RISK ? data.risk.chart : data.iqd.chart;
+	let pixelsData = getPixelData(type);
+	let chartData = getChartData(type);
 
 	let distritos = true;
 	let concelhos = false;
@@ -40,35 +63,20 @@
 
 	$: dateIndex = dateToIndex(date);
 	$: {
-		pixelsData = type == DataType.RISK ? data.risk.pixels : data.iqd.pixels;
-		chartData = type == DataType.RISK ? data.risk.chart : data.iqd.chart;
+		pixelsData = getPixelData(type);
+		chartData = getChartData(type);
 	}
-
-	const getDescription = function (type: DataType) {
-		if (type === DataType.RISK) {
-			return 'Risco por 100 mil habitantes';
-		} else if (type === DataType.UNCERTAINTY) {
-			return 'Incerteza por 100 mil habitantes';
-		} else {
-			return 'Probabilidade por 100 mil habitantes';
-		}
-	};
-
-	const getConfig = function (type: DataType) {
-		if (type === DataType.RISK) {
-			return configs.at(0)?.scale;
-		} else if (type === DataType.UNCERTAINTY) {
-			return configs.at(1)?.scale;
-		} else {
-			return configs.at(2)?.scale;
-		}
-	};
 </script>
 
 <div class="flex flex-col h-screen w-screen">
 	<div class="grow relative">
 		<Map>
-			<PixelLayer data={pixelsData[dateIndex]} {opacity} bind:hoveredValue={hValue} />
+			<PixelLayer
+				data={pixelsData[dateIndex]}
+				scale={getConfig(type).scale}
+				{opacity}
+				bind:hoveredValue={hValue}
+			/>
 			<BorderLayer
 				id="freguesias"
 				url={'data/freguesias.json'}
@@ -97,13 +105,13 @@
 				<Toggle label="Concelhos" bind:value={concelhos} />
 				<Toggle label="Freguesias" bind:value={freguesias} />
 			</div>
-			<LineChart {minDate} {maxDate} {date} data={chartData} />
+			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
 		</div>
 		<div class="absolute z-10 bottom-5 left-0 right-0 mx-auto w-[48rem]">
-			<DateSelector {minDate} {maxDate} bind:date />
+			<DateSelector minDate={data.minDate} maxDate={data.maxDate} bind:date />
 		</div>
 		<div class="absolute z-10 bottom-5 right-5">
-			<ColorScale config={getConfig(type) ?? configs[0].scale} />
+			<ColorScale config={getConfig(type)} />
 		</div>
 		<div class="absolute z-10 top-5 right-5">
 			<InfoCard
@@ -111,7 +119,9 @@
 				concelho={hConcelho}
 				freguesia={hFreguesia}
 				value={hValue}
-				description={getDescription(type)}
+				isPercentage={type === DataType.PROBABILITY}
+				label={getConfig(type).label}
+				description={getConfig(type).description}
 			/>
 		</div>
 	</div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { ColorScaleInterval } from '$lib/constants';
 	import { getContext, onDestroy } from 'svelte';
 	import { key, mapboxgl, type MBMapContext } from './mapboxgl';
 
@@ -9,9 +10,22 @@
 	const hoverLayerId = 'pixels-hover-layer';
 
 	export let data: number[];
+	export let scale: ColorScaleInterval[];
 	export let hoveredId: number | null = null;
 	export let hoveredValue: number | null = null;
 	export let opacity: number = 1;
+
+	const buildSteps = (scale: ColorScaleInterval[]): any => {
+		let reverseScale = [...scale].reverse();
+		let steps: any[] = ['step', ['feature-state', 'value']];
+		for (let i = 0; i < reverseScale.length; i++) {
+			steps.push(reverseScale[i].color);
+			if (i < reverseScale.length - 1) {
+				steps.push(reverseScale[i].upperBound);
+			}
+		}
+		return steps;
+	};
 
 	$: {
 		if (hoveredId !== null) {
@@ -59,29 +73,7 @@
 				'fill-extrusion-color': [
 					'case',
 					['!=', ['feature-state', 'value'], null],
-					[
-						'step',
-						['feature-state', 'value'],
-						'#ffff80',
-						100,
-						'#f6e871',
-						200,
-						'#edd162',
-						300,
-						'#e3bb54',
-						400,
-						'#d9a445',
-						500,
-						'#ce8e37',
-						600,
-						'#c27829',
-						700,
-						'#b6621c',
-						800,
-						'#aa4b0d',
-						900,
-						'#9d3200'
-					],
+					buildSteps(scale),
 					'#000'
 				],
 				'fill-extrusion-height': ['get', 'id'],
@@ -138,6 +130,17 @@
 	$: {
 		if (initialized) {
 			getMap()?.setPaintProperty(layerId, 'fill-extrusion-opacity', opacity);
+		}
+	}
+
+	$: {
+		if (initialized) {
+			getMap()?.setPaintProperty(layerId, 'fill-extrusion-color', [
+				'case',
+				['!=', ['feature-state', 'value'], null],
+				buildSteps(scale),
+				'#000'
+			]);
 		}
 	}
 

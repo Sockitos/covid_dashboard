@@ -16,7 +16,7 @@
 	export let maxDate: Date;
 	export let data: number[];
 
-	function getDates(): number[] {
+	const getDates = (): number[] => {
 		let dateArray: number[] = [];
 		var currentDate = minDate;
 		while (currentDate <= maxDate) {
@@ -24,7 +24,7 @@
 			currentDate = new Date(currentDate.valueOf() + 86400000);
 		}
 		return dateArray;
-	}
+	};
 
 	$: {
 		if (chart) {

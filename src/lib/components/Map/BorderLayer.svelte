@@ -116,13 +116,13 @@
 		if (initialized) {
 			getMap()?.off('load', initialize);
 			getMap()?.removeLayer(layerId);
-			getMap()?.removeSource(id);
 			getMap()?.off('mousemove', layerId, onMouseMove);
 			getMap()?.off('mouseleave', layerId, onMouseLeave);
 			if (selectable) {
 				getMap()?.off('click', selectedLayerId, onMouseClick);
 				getMap()?.removeLayer(selectedLayerId);
 			}
+			getMap()?.removeSource(id);
 			initialized = false;
 		}
 	});

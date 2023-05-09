@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { ColorScaleConfig } from '$lib/constants';
-	export let config: ColorScaleConfig;
+	import type { MapConfig } from '$lib/constants';
+	export let config: MapConfig;
 </script>
 
 {#if config}
@@ -14,7 +14,7 @@
 			{/if}
 		</div>
 		<div class="p-5 mr-auto">
-			{#each config.intervals as interval}
+			{#each config.scale as interval}
 				<div class="w-full flex flex-row items-center space-x-5">
 					<div class="h-8 w-16" style={`background-color: ${interval.color};`} />
 					<span class="text-lg font-medium text-black">{interval.label}</span>
