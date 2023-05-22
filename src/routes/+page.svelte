@@ -17,27 +17,16 @@
 	const dateToIndex = (date: Date): number => {
 		var millis = date.valueOf();
 		return (millis - data.minDate.valueOf()) / 86400000;
-	};
-
-	const getChartData = (type: DataType): number[] => {
-		switch (type) {
-			case DataType.RISK:
-				return data.risk.chart;
-			case DataType.UNCERTAINTY:
-				return data.iqd.chart;
-			case DataType.PROBABILITY:
-				return data.prob.chart;
-		}
-	};
+	};	
 
 	const getPixelData = (type: DataType): number[][] => {
 		switch (type) {
 			case DataType.RISK:
-				return data.risk.pixels;
+				return data.pixels.risk;
 			case DataType.UNCERTAINTY:
-				return data.iqd.pixels;
+				return data.pixels.iqd;
 			case DataType.PROBABILITY:
-				return data.prob.pixels;
+				return data.pixels.prob;
 		}
 	};
 
@@ -49,7 +38,7 @@
 	let dateIndex = dateToIndex(date);
 	let type = DataType.RISK;
 	let pixelsData = getPixelData(type);
-	let chartData = getChartData(type);
+	let chartData = data.chart;
 
 	let distritos = true;
 	let concelhos = false;
@@ -62,10 +51,7 @@
 	let hFreguesia: string | null = null;
 
 	$: dateIndex = dateToIndex(date);
-	$: {
-		pixelsData = getPixelData(type);
-		chartData = getChartData(type);
-	}
+	$: pixelsData = getPixelData(type);
 </script>
 
 <div class="flex flex-col h-screen w-screen">
