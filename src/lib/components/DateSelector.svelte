@@ -69,7 +69,7 @@
 				/></svg
 			>
 		</button>
-		<span class="text-xl font-medium text-black px-2">{date.toLocaleDateString()}</span>
+		<span class="text-xl text-center font-medium text-black px-2 w-36">{date.toLocaleDateString()}</span>
 		<button
 			type="button"
 			on:click={() => {
