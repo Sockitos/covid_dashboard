@@ -3,8 +3,8 @@ import type { PageLoadEvent } from './$types';
 
 /** @type {import('./$types').PageLoad} */
 export async function load(e: PageLoadEvent) {
-	const defaultMinDate = new Date(2020, 8, 1);
-	const defaultMaxDate = new Date(2021, 4, 25);
+	const defaultMinDate = new Date('2020-09-01');
+	const defaultMaxDate = new Date('2021-05-25');
 
 	let minDate = defaultMinDate;
 	let maxDate = defaultMaxDate;
@@ -31,12 +31,12 @@ export async function load(e: PageLoadEvent) {
 	e.url.searchParams.set('minDate', minDate.toISOString().slice(0, 10));
 	e.url.searchParams.set('maxDate', maxDate.toISOString().slice(0, 10));
 
-	const chart = (await (await e.fetch('/data/chart.json')).json()).data as number[];
-	const chart2 = (await (await e.fetch('/data/chart2.json')).json()).data as ChartData[];
-	const pixels = (await (await e.fetch('/data/pixels.json')).json()).data as number[][];
-	const risk = (await (await e.fetch('/data/risk.json')).json()).data as number[][];
-	const iqd = (await (await e.fetch('/data/iqd.json')).json()).data as number[][];
-	const prob = (await (await e.fetch('/data/prob.json')).json()).data as number[][];
+	const chart = (await (await e.fetch('data/chart.json')).json()).data as number[];
+	const chart2 = (await (await e.fetch('data/chart2.json')).json()).data as ChartData[];
+	const pixels = (await (await e.fetch('data/pixels.json')).json()).data as number[][];
+	const risk = (await (await e.fetch('data/risk.json')).json()).data as number[][];
+	const iqd = (await (await e.fetch('data/iqd.json')).json()).data as number[][];
+	const prob = (await (await e.fetch('data/prob.json')).json()).data as number[][];
 
 	return {
 		minDate: minDate,
