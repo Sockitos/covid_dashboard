@@ -12,13 +12,15 @@ const config = {
 			postcss: true
 		})
 	],
-
 	kit: {
 		adapter: adapter(
 			{
 				fallback: 'index.html'
 			}
-		)
+		),
+		paths: {
+			base: '/covid_dashboard',
+		}
 	}
 };
 

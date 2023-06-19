@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import ColorScale from '$lib/components/ColorScale.svelte';
 	import DateSelector from '$lib/components/DateSelector.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -69,19 +70,19 @@
 			/>
 			<BorderLayer
 				id="freguesias"
-				url={'data/freguesias.json'}
+				url={base + '/data/freguesias.json'}
 				visiblity={freguesias}
 				bind:hoveredLabel={hFreguesia}
 			/>
 			<BorderLayer
 				id="concelhos"
-				url={'data/concelhos.json'}
+				url={base + '/data/concelhos.json'}
 				visiblity={concelhos}
 				bind:hoveredLabel={hConcelho}
 			/>
 			<BorderLayer
 				id="aces"
-				url={'data/aces.json'}
+				url={base + '/data/aces.json'}
 				visiblity={distritos}
 				selectable={true}
 				bind:selectedId={selectedACES}

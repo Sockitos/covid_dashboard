@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import type { ColorScaleStop } from '$lib/constants';
 	import { getContext, onDestroy } from 'svelte';
 	import { key, mapboxgl, type MBMapContext } from './mapboxgl';
@@ -59,7 +60,7 @@
 	function initialize() {
 		source = {
 			type: 'geojson',
-			data: 'data/pixels.json',
+			data: base + '/data/pixels.json',
 			generateId: true
 		};
 

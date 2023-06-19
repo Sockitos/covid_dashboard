@@ -31,29 +31,25 @@ export async function load(e: PageLoadEvent) {
 	e.url.searchParams.set('minDate', minDate.toISOString().slice(0, 10));
 	e.url.searchParams.set('maxDate', maxDate.toISOString().slice(0, 10));
 
+	const chart = (await (await e.fetch('/data/chart.json')).json()).data as number[];
+	const chart2 = (await (await e.fetch('/data/chart2.json')).json()).data as ChartData[];
+	const pixels = (await (await e.fetch('/data/pixels.json')).json()).data as number[][];
+	const risk = (await (await e.fetch('/data/risk.json')).json()).data as number[][];
+	const iqd = (await (await e.fetch('/data/iqd.json')).json()).data as number[][];
+	const prob = (await (await e.fetch('/data/prob.json')).json()).data as number[][];
+
 	return {
 		minDate: minDate,
 		maxDate: maxDate,
-		chart: ((await (await e.fetch('/data/chart.json')).json()).data as number[]).slice(
-			minIndex,
-			maxIndex + 1
-		),
-		chart2: ((await (await e.fetch('/data/chart2.json')).json()).data as ChartData[]).map((d) => ({
+		chart: chart.slice(minIndex, maxIndex + 1),
+		chart2: chart2.map((d) => ({
 			...d,
 			data: d.data.slice(minIndex, maxIndex + 1)
 		})),
 		pixels: {
-			[DataType.RISK]: ((await (await e.fetch('/data/risk.json')).json()).data as number[][]).slice(
-				minIndex,
-				maxIndex + 1
-			),
-			[DataType.UNCERTAINTY]: (
-				(await (await e.fetch('/data/iqd.json')).json()).data as number[][]
-			).slice(minIndex, maxIndex + 1),
-
-			[DataType.PROBABILITY]: (
-				(await (await e.fetch('/data/prob.json')).json()).data as number[][]
-			).slice(minIndex, maxIndex + 1)
+			[DataType.RISK]: risk.slice(minIndex, maxIndex + 1),
+			[DataType.UNCERTAINTY]: iqd.slice(minIndex, maxIndex + 1),
+			[DataType.PROBABILITY]: prob.slice(minIndex, maxIndex + 1)
 		}
 	};
 }
