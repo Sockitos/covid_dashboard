@@ -1,25 +1,28 @@
 <script lang="ts">
 	import type { MapConfig } from '$lib/constants';
 	export let config: MapConfig;
+	let gradient: string;
+
+	$: gradient = `linear-gradient(to bottom, ${config.stops.map((stop) => stop.color).join(', ')})`;
 </script>
 
 {#if config}
 	<div
-		class="bg-white border border-gray-200 rounded-lg shadow w-60 flex flex-col justify-center items-center"
+		class="bg-white border border-gray-200 rounded-lg shadow w-52 flex flex-col justify-center items-start"
 	>
 		<div class="rounded-t-lg bg-blue-600 w-full p-5">
 			<span class="text-xl font-medium text-white">{config.label}</span><br />
 			{#if config.description !== ''}
-				<span class="text-lg font-medium text-white">{config.description}</span>
+				<span class="text-base font-medium text-white">{config.description}</span>
 			{/if}
 		</div>
-		<div class="p-5 mr-auto">
-			{#each config.scale as interval}
-				<div class="w-full flex flex-row items-center space-x-5">
-					<div class="h-8 w-16" style={`background-color: ${interval.color};`} />
-					<span class="text-lg font-medium text-black">{interval.label}</span>
-				</div>
-			{/each}
+		<div class="m-5 flex flex-row justify-start items-stretch space-x-5 h-64">
+			<div class="w-16" style={`background: ${gradient};`} />
+			<div class="flex flex-col justify-between">
+				{#each config.labels as label}
+					<span class="text-lg font-medium text-black">{label}</span>
+				{/each}
+			</div>
 		</div>
 	</div>
 {/if}

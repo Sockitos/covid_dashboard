@@ -4,30 +4,31 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import InfoCard from '$lib/components/InfoCard.svelte';
 	import LineChart from '$lib/components/LineChart.svelte';
+	import LinesChart from '$lib/components/LinesChart.svelte';
 	import BorderLayer from '$lib/components/Map/BorderLayer.svelte';
 	import Map from '$lib/components/Map/Map.svelte';
 	import PixelLayer from '$lib/components/Map/PixelLayer.svelte';
 	import Slider from '$lib/components/Slider.svelte';
 	import Toggle from '$lib/components/Toggle.svelte';
 	import TypeSelector from '$lib/components/TypeSelector.svelte';
-	import { configs, DataType, type MapConfig } from '$lib/constants';
+	import { DataType, configs, type ChartData, type MapConfig } from '$lib/constants';
 
 	export let data;
 
 	const dateToIndex = (date: Date): number => {
 		var millis = date.valueOf();
 		return (millis - data.minDate.valueOf()) / 86400000;
-	};	
+	};
 
 	const getPixelData = (type: DataType): number[][] => {
-		switch (type) {
-			case DataType.RISK:
-				return data.pixels.risk;
-			case DataType.UNCERTAINTY:
-				return data.pixels.iqd;
-			case DataType.PROBABILITY:
-				return data.pixels.prob;
+		return data.pixels[type];
+	};
+
+	const getChart2Data = (aces: number | null): ChartData[] | null => {
+		if (aces === null) {
+			return null;
 		}
+		return data.chart2.filter((d) => d.fids.includes(aces));
 	};
 
 	const getConfig = (type: DataType): MapConfig => {
@@ -39,6 +40,8 @@
 	let type = DataType.RISK;
 	let pixelsData = getPixelData(type);
 	let chartData = data.chart;
+	let selectedACES: number | null = null;
+	let chart2Data = getChart2Data(selectedACES);
 
 	let distritos = true;
 	let concelhos = false;
@@ -52,6 +55,7 @@
 
 	$: dateIndex = dateToIndex(date);
 	$: pixelsData = getPixelData(type);
+	$: chart2Data = getChart2Data(selectedACES);
 </script>
 
 <div class="flex flex-col h-screen w-screen">
@@ -59,7 +63,7 @@
 		<Map>
 			<PixelLayer
 				data={pixelsData[dateIndex]}
-				scale={getConfig(type).scale}
+				stops={getConfig(type).stops}
 				{opacity}
 				bind:hoveredValue={hValue}
 			/>
@@ -80,10 +84,11 @@
 				url={'data/aces.json'}
 				visiblity={distritos}
 				selectable={true}
+				bind:selectedId={selectedACES}
 				bind:hoveredLabel={hACES}
 			/>
 		</Map>
-		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-8">
+		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-8 w-96">
 			<TypeSelector bind:value={type} />
 			<Slider bind:value={opacity} />
 			<div class="flex flex-col space-y-4">
@@ -92,6 +97,7 @@
 				<Toggle label="Freguesias" bind:value={freguesias} />
 			</div>
 			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
+			<LinesChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chart2Data} />
 		</div>
 		<div class="absolute z-10 bottom-5 left-0 right-0 mx-auto w-[48rem]">
 			<DateSelector minDate={data.minDate} maxDate={data.maxDate} bind:date />

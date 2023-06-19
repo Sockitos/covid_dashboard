@@ -44,7 +44,7 @@
 		source = {
 			type: 'geojson',
 			data: url,
-			generateId: true
+			promoteId: 'id'
 		};
 
 		layerId = id + 'layer';

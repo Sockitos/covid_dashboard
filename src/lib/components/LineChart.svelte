@@ -49,8 +49,9 @@
 			labels: getDates(),
 			datasets: [
 				{
-					backgroundColor: 'rgb(37, 99, 235)',
 					borderColor: 'rgb(37, 99, 235)',
+					pointRadius: 0,
+					pointHoverRadius: 0,
 					data: data
 				}
 			]
@@ -61,16 +62,11 @@
 				x: {
 					type: 'time' as const,
 					time: {
-						unit: 'day' as const,
 						displayFormats: {
-							day: 'dd/MM/yy'
+							day: 'dd MMM',
+							month: 'dd MMM'
 						}
 					}
-				}
-			},
-			elements: {
-				point: {
-					radius: 0
 				}
 			},
 			plugins: {
@@ -114,6 +110,6 @@
 	}
 </script>
 
-<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
 	<canvas use:initialize />
 </div>
