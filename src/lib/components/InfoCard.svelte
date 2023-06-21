@@ -3,7 +3,6 @@
 	export let concelho: string | null;
 	export let freguesia: string | null;
 	export let value: number | null;
-	export let isPercentage: boolean = false;
 	export let label: string;
 	export let description: string;
 </script>
@@ -14,9 +13,7 @@
 	{#if value !== null}
 		<p class="text-xl">{label}</p>
 		<p>{description}</p>
-		<p class="text-4xl font-bold text-black py-2">
-			{isPercentage ? (value * 100).toFixed(0) + '%' : value}
-		</p>
+		<p class="text-4xl font-bold text-black py-2">{value}</p>
 		<p>{aces}</p>
 		<p>{concelho}</p>
 		<p>{freguesia}</p>

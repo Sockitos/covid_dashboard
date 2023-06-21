@@ -8,15 +8,15 @@
 
 {#if config}
 	<div
-		class="bg-white border border-gray-200 rounded-lg shadow w-52 flex flex-col justify-center items-start"
+		class="bg-white border border-gray-200 rounded-lg shadow w-56 flex flex-col justify-center items-start"
 	>
-		<div class="rounded-t-lg bg-blue-600 w-full p-5">
-			<span class="text-xl font-medium text-white">{config.label}</span><br />
+		<div class="rounded-t-lg bg-blue-600 w-full p-5 flex flex-col">
+			<span class="text-lg font-medium leading-tight text-white pb-2">{config.label}</span>
 			{#if config.description !== ''}
-				<span class="text-base font-medium text-white">{config.description}</span>
+				<span class="text-base font-medium leading-tight text-white">{config.description}</span>
 			{/if}
 		</div>
-		<div class="m-5 flex flex-row justify-start items-stretch space-x-5 h-64">
+		<div class="m-5 flex flex-row justify-start items-stretch space-x-5 h-52">
 			<div class="w-16" style={`background: ${gradient};`} />
 			<div class="flex flex-col justify-between">
 				{#each config.labels as label}

@@ -87,6 +87,18 @@
 							day: 'dd MMM',
 							month: 'dd MMM'
 						}
+					},
+					title: {
+						display: true,
+						text: 'Tempo',
+						padding: 0
+					}
+				},
+				y: {
+					title: {
+						display: true,
+						text: 'Tx. inc. cum. 14-d (* 10^5 hab.)',
+						padding: 0
 					}
 				}
 			},

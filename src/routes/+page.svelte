@@ -38,7 +38,7 @@
 
 	let date = data.minDate;
 	let dateIndex = dateToIndex(date);
-	let type = DataType.RISK;
+	let type = DataType.INCIDENCE;
 	let pixelsData = getPixelData(type);
 	let chartData = data.chart;
 	let selectedACES: number | null = null;
@@ -112,7 +112,6 @@
 				concelho={hConcelho}
 				freguesia={hFreguesia}
 				value={hValue}
-				isPercentage={type === DataType.PROBABILITY}
 				label={getConfig(type).label}
 				description={getConfig(type).description}
 			/>

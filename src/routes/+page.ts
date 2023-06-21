@@ -34,7 +34,7 @@ export async function load(e: PageLoadEvent) {
 	const chart = (await (await e.fetch('data/chart.json')).json()).data as number[];
 	const chart2 = (await (await e.fetch('data/chart2.json')).json()).data as ChartData[];
 	const pixels = (await (await e.fetch('data/pixels.json')).json()).data as number[][];
-	const risk = (await (await e.fetch('data/risk.json')).json()).data as number[][];
+	const inc = (await (await e.fetch('data/inc.json')).json()).data as number[][];
 	const iqd = (await (await e.fetch('data/iqd.json')).json()).data as number[][];
 	const prob = (await (await e.fetch('data/prob.json')).json()).data as number[][];
 
@@ -47,7 +47,7 @@ export async function load(e: PageLoadEvent) {
 			data: d.data.slice(minIndex, maxIndex + 1)
 		})),
 		pixels: {
-			[DataType.RISK]: risk.slice(minIndex, maxIndex + 1),
+			[DataType.INCIDENCE]: inc.slice(minIndex, maxIndex + 1),
 			[DataType.UNCERTAINTY]: iqd.slice(minIndex, maxIndex + 1),
 			[DataType.PROBABILITY]: prob.slice(minIndex, maxIndex + 1)
 		}

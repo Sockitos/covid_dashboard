@@ -1,5 +1,5 @@
 export enum DataType {
-	RISK,
+	INCIDENCE,
 	UNCERTAINTY,
 	PROBABILITY
 }
@@ -27,8 +27,8 @@ export type ChartData = {
 };
 
 export const configs: MapConfigs = {
-	[DataType.RISK]: {
-		label: 'Risco',
+	[DataType.INCIDENCE]: {
+		label: 'Incidência cumulativa',
 		description: 'Por 100.000 habitantes',
 		stops: [
 			{
@@ -48,7 +48,7 @@ export const configs: MapConfigs = {
 		labels: ['1000+', '750', '500', '250', '0']
 	},
 	[DataType.UNCERTAINTY]: {
-		label: 'Incerteza',
+		label: 'Incerteza espacial',
 		description: 'Por 100.000 habitantes',
 		stops: [
 			{
@@ -68,8 +68,8 @@ export const configs: MapConfigs = {
 		labels: ['1000+', '750', '500', '250', '0']
 	},
 	[DataType.PROBABILITY]: {
-		label: 'Probabilidade',
-		description: 'Por 100.000 habitantes',
+		label: 'Probabilidade de excedência',
+		description: '240 casos / 100.000 habitantes',
 		stops: [
 			{
 				value: 1,
@@ -85,6 +85,6 @@ export const configs: MapConfigs = {
 				color: '#ffff80'
 			}
 		],
-		labels: ['100%', '75%', '50%', '25%', '0%']
+		labels: ['1.0', '0.75', '0.5', '0.25', '0']
 	}
 };
