@@ -26,17 +26,89 @@
 		return dateArray;
 	};
 
+	const getAnnotations = (): any => {
+		const alertDate = new Date('2020-07-03');
+		const emergencyDate = new Date('2020-11-06');
+		const calamityDate = new Date('2021-04-30');
+		const finalDate = new Date('2021-05-30');
+		return {
+			currentDate: {
+				type: 'line' as const,
+				xMin: date.valueOf(),
+				xMax: date.valueOf(),
+				borderColor: 'rgb(0, 0, 0)',
+				borderWidth: 2
+			},
+			alertLine: {
+				type: 'line' as const,
+				xMin: alertDate.valueOf(),
+				xMax: alertDate.valueOf(),
+				borderColor: 'rgba(0, 0, 0, 0.4)',
+				borderWidth: 1
+			},
+			alertLabel:
+				(alertDate > minDate && alertDate < maxDate) ||
+				(emergencyDate > minDate && emergencyDate < maxDate) ||
+				(alertDate < minDate && emergencyDate > maxDate)
+					? {
+							type: 'label' as const,
+							content: 'Alerta',
+							color: 'rgba(0, 0, 0, 0.4)',
+							position: { x: 'center', y: 'start' },
+							yMin: (c: any) => c.chart.scales.y.max,
+							xMin: Math.max(alertDate.valueOf(), minDate.valueOf()),
+							xMax: Math.min(emergencyDate.valueOf(), maxDate.valueOf())
+					  }
+					: undefined,
+			emergencyLine: {
+				type: 'line' as const,
+				xMin: emergencyDate.valueOf(),
+				xMax: emergencyDate.valueOf(),
+				borderColor: 'rgba(0, 0, 0, 0.4)',
+				borderWidth: 1
+			},
+			emergencyLabel:
+				(emergencyDate > minDate && emergencyDate < maxDate) ||
+				(calamityDate > minDate && calamityDate < maxDate) ||
+				(emergencyDate < minDate && calamityDate > maxDate)
+					? {
+							type: 'label' as const,
+							content: 'Emergência',
+							color: 'rgba(0, 0, 0, 0.4)',
+							position: { x: 'center', y: 'start' },
+							yMin: (c: any) => c.chart.scales.y.max,
+							xMin: Math.max(emergencyDate.valueOf(), minDate.valueOf()),
+							xMax: Math.min(calamityDate.valueOf(), maxDate.valueOf())
+					  }
+					: undefined,
+			calamityLine: {
+				type: 'line' as const,
+				xMin: calamityDate.valueOf(),
+				xMax: calamityDate.valueOf(),
+				borderColor: 'rgba(0, 0, 0, 0.4)',
+				borderWidth: 1
+			},
+			calamityLabel:
+				(calamityDate > minDate && calamityDate < maxDate) ||
+				(finalDate > minDate && finalDate < maxDate) ||
+				(calamityDate < minDate && finalDate > maxDate)
+					? {
+							type: 'label' as const,
+							content: 'Calamidade',
+							color: 'rgba(0, 0, 0, 0.4)',
+							position: { x: 'center', y: 'start' },
+							yMin: (c: any) => c.chart.scales.y.max,
+							xMin: Math.max(calamityDate.valueOf(), minDate.valueOf()),
+							xMax: Math.min(finalDate.valueOf(), maxDate.valueOf()),
+							xAddjust: -50
+					  }
+					: undefined
+		};
+	};
+
 	$: {
-		if (chart) {
-			chart!.options.plugins!.annotation!.annotations = {
-				line1: {
-					type: 'line' as const,
-					xMin: date.valueOf(),
-					xMax: date.valueOf(),
-					borderColor: 'rgb(0, 0, 0)',
-					borderWidth: 2
-				}
-			};
+		if (chart && date) {
+			chart!.options.plugins!.annotation!.annotations = getAnnotations();
 			chart.data.datasets.at(0)!.data = data;
 		}
 	}
@@ -67,6 +139,8 @@
 							month: 'dd MMM'
 						}
 					},
+					min: minDate.valueOf(),
+					max: maxDate.valueOf(),
 					title: {
 						display: true,
 						text: 'Tempo',
@@ -76,7 +150,7 @@
 				y: {
 					title: {
 						display: true,
-						text: 'Tx. inc. cum. 14-d (* 10^5 hab.)',
+						text: 'Tx. inc. cum. (* 10\u2075 hab.)    ',
 						padding: 0
 					}
 				}
@@ -89,15 +163,7 @@
 					enabled: false
 				},
 				annotation: {
-					annotations: {
-						line1: {
-							type: 'line' as const,
-							xMin: date.valueOf(),
-							xMax: date.valueOf(),
-							borderColor: 'rgb(0, 0, 0)',
-							borderWidth: 2
-						}
-					}
+					annotations: getAnnotations()
 				}
 			}
 		}
@@ -122,6 +188,6 @@
 	}
 </script>
 
-<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
 	<canvas use:initialize />
 </div>
