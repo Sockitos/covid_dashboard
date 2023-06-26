@@ -19,8 +19,8 @@ const config = {
 			}
 		),
 		paths: {
-			base: '/covid_dashboard',
-		}
+			base: process.env.BASE_PATH,
+		},
 	}
 };
 
