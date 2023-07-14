@@ -3,14 +3,14 @@ import type { PageLoadEvent } from './$types';
 
 /** @type {import('./$types').PageLoad} */
 export async function load(e: PageLoadEvent) {
-	const defaultMinDate = new Date('2020-09-01');
+	const defaultMinDate = new Date('2020-05-15');
 	const defaultMaxDate = new Date('2021-05-25');
 
 	let minDate = defaultMinDate;
 	let maxDate = defaultMaxDate;
 
 	const dateToIndex = (date: Date): number => {
-		var millis = date.valueOf();
+		const millis = date.valueOf();
 		return (millis - defaultMinDate.valueOf()) / 86400000;
 	};
 
@@ -33,7 +33,6 @@ export async function load(e: PageLoadEvent) {
 
 	const chart = (await (await e.fetch('data/chart.json')).json()).data as number[];
 	const chart2 = (await (await e.fetch('data/chart2.json')).json()).data as ChartData[];
-	const pixels = (await (await e.fetch('data/pixels.json')).json()).data as number[][];
 	const inc = (await (await e.fetch('data/inc.json')).json()).data as number[][];
 	const iqd = (await (await e.fetch('data/iqd.json')).json()).data as number[][];
 	const prob = (await (await e.fetch('data/prob.json')).json()).data as number[][];
