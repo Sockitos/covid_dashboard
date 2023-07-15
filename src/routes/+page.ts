@@ -17,6 +17,7 @@ export async function load(e: PageLoadEvent) {
 	const params = e.url.searchParams;
 	const paramsMinDate = params.has('minDate') ? new Date(params.get('minDate')!) : null;
 	const paramsMaxDate = params.has('maxDate') ? new Date(params.get('maxDate')!) : null;
+	const paramsIsTrad = params.has('trad') ? params.get('trad') === 'true' : false;
 
 	if (paramsMinDate && paramsMaxDate && paramsMinDate.valueOf() < paramsMaxDate.valueOf()) {
 		minDate =
@@ -36,6 +37,7 @@ export async function load(e: PageLoadEvent) {
 	const inc = (await (await e.fetch('data/inc.json')).json()).data as number[][];
 	const iqd = (await (await e.fetch('data/iqd.json')).json()).data as number[][];
 	const prob = (await (await e.fetch('data/prob.json')).json()).data as number[][];
+	const incTrad = (await (await e.fetch('data/inc_trad.json')).json()).data as number[][];
 
 	return {
 		minDate: minDate,
@@ -49,6 +51,12 @@ export async function load(e: PageLoadEvent) {
 			[DataType.INCIDENCE]: inc.slice(minIndex, maxIndex + 1),
 			[DataType.UNCERTAINTY]: iqd.slice(minIndex, maxIndex + 1),
 			[DataType.PROBABILITY]: prob.slice(minIndex, maxIndex + 1)
-		}
+		},
+		trad: {
+			[DataType.INCIDENCE]: incTrad.slice(minIndex, maxIndex + 1),
+			[DataType.UNCERTAINTY]: [],
+			[DataType.PROBABILITY]: []
+		},
+		isTrad: paramsIsTrad
 	};
 }

@@ -9,6 +9,7 @@
 	import BorderLayer from '$lib/components/Map/BorderLayer.svelte';
 	import Map from '$lib/components/Map/Map.svelte';
 	import PixelLayer from '$lib/components/Map/PixelLayer.svelte';
+	import TradLayer from '$lib/components/Map/TradLayer.svelte';
 	import Slider from '$lib/components/Slider.svelte';
 	import Toggle from '$lib/components/Toggle.svelte';
 	import TypeSelector from '$lib/components/TypeSelector.svelte';
@@ -25,6 +26,10 @@
 		return data.pixels[type];
 	};
 
+	const getTradData = (type: DataType): number[][] => {
+		return data.trad[type];
+	};
+
 	const getChart2Data = (aces: number | null): ChartData[] | null => {
 		if (aces === null) {
 			return null;
@@ -39,7 +44,9 @@
 	let date = data.minDate;
 	let dateIndex = dateToIndex(date);
 	let type = DataType.INCIDENCE;
+	let isTrad = data.isTrad;
 	let pixelsData = getPixelData(type);
+	let tradData = getTradData(type);
 	let chartData = data.chart;
 	let selectedACES: number | null = null;
 	let chart2Data = getChart2Data(selectedACES);
@@ -56,18 +63,28 @@
 
 	$: dateIndex = dateToIndex(date);
 	$: pixelsData = getPixelData(type);
+	$: tradData = getTradData(type);
 	$: chart2Data = getChart2Data(selectedACES);
 </script>
 
 <div class="flex flex-col h-screen w-screen">
 	<div class="grow relative">
 		<Map>
-			<PixelLayer
-				data={pixelsData[dateIndex]}
-				stops={getConfig(type).stops}
-				{opacity}
-				bind:hoveredValue={hValue}
-			/>
+			{#if isTrad}
+				<TradLayer
+					data={tradData[dateIndex]}
+					stops={getConfig(type).stops}
+					{opacity}
+					bind:hoveredValue={hValue}
+				/>
+			{:else}
+				<PixelLayer
+					data={pixelsData[dateIndex]}
+					stops={getConfig(type).stops}
+					{opacity}
+					bind:hoveredValue={hValue}
+				/>
+			{/if}
 			<BorderLayer
 				id="freguesias"
 				url={base + '/data/freguesias.json'}
@@ -90,7 +107,9 @@
 			/>
 		</Map>
 		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-8 w-96">
-			<TypeSelector bind:value={type} />
+			{#if !isTrad}
+				<TypeSelector bind:value={type} />
+			{/if}
 			<Slider bind:value={opacity} />
 			<div class="flex flex-col space-y-4">
 				<Toggle label="ACES" bind:value={distritos} />
