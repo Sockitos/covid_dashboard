@@ -52,7 +52,7 @@
 	let chart2Data = getChart2Data(selectedACES);
 
 	let distritos = true;
-	let concelhos = false;
+	let concelhos = isTrad;
 	let freguesias = false;
 	let opacity = 1;
 
