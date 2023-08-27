@@ -60,11 +60,11 @@
 		selectedLayerId = layerId + '-select';
 		selectedLayer = {
 			id: selectedLayerId,
-			type: 'fill',
+			type: 'line',
 			source: id,
 			paint: {
-				'fill-color': 'transparent',
-				'fill-outline-color': [
+				'line-width': 2,
+				'line-color': [
 					'case',
 					['boolean', ['feature-state', 'selected'], false],
 					'blue',
@@ -87,7 +87,7 @@
 		if (initialized) {
 			if (selectable) {
 				getMap()?.addLayer(selectedLayer);
-				getMap()?.on('click', selectedLayerId, onMouseClick);
+				getMap()?.on('click', layerId, onMouseClick);
 			}
 		}
 	}
@@ -119,7 +119,7 @@
 			getMap()?.off('mousemove', layerId, onMouseMove);
 			getMap()?.off('mouseleave', layerId, onMouseLeave);
 			if (selectable) {
-				getMap()?.off('click', selectedLayerId, onMouseClick);
+				getMap()?.off('click', layerId, onMouseClick);
 				getMap()?.removeLayer(selectedLayerId);
 			}
 			getMap()?.removeSource(id);
