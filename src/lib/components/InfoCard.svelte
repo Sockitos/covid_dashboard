@@ -5,12 +5,14 @@
 	export let value: number | null;
 	export let label: string;
 	export let description: string;
+
+	$: hasData = value !== null && aces !== null && concelho !== null && freguesia !== null;
 </script>
 
 <div
 	class="bg-white border border-gray-200 rounded-lg shadow-sm w-96 p-5 flex flex-col justify-center items-center font-medium text-black text-center"
 >
-	{#if value !== null}
+	{#if hasData}
 		<p class="text-xl">{label}</p>
 		<p>{description}</p>
 		<p class="text-4xl font-bold text-black py-2">{value}</p>
