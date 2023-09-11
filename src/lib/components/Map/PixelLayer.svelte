@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" generics="T extends number | [number, number, number]">
 	import { base } from '$app/paths';
 	import type { ColorScaleStop } from '$lib/constants';
 	import { getContext, onDestroy } from 'svelte';
@@ -10,10 +10,10 @@
 	const layerId = 'pixels-layer';
 	const hoverLayerId = 'pixels-hover-layer';
 
-	export let data: number[];
+	export let data: T[];
 	export let stops: ColorScaleStop[];
 	export let hoveredId: number | null = null;
-	export let hoveredValue: number | null = null;
+	export let hoveredValue: T | null = null;
 	export let opacity: number = 1;
 
 	const buildStops = (scale: ColorScaleStop[]): any => {
@@ -119,7 +119,7 @@
 						id: i
 					},
 					{
-						value: data[i]
+						value: typeof data[i] === 'number' ? data[i] : (data[i] as [number, number, number])[1]
 					}
 				);
 			}

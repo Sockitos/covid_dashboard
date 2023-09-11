@@ -2,7 +2,7 @@
 	export let aces: string | null;
 	export let concelho: string | null;
 	export let freguesia: string | null;
-	export let value: number | null;
+	export let value: number | [number, number, number] | null;
 	export let label: string;
 	export let description: string;
 
@@ -10,12 +10,20 @@
 </script>
 
 <div
-	class="bg-white border border-gray-200 rounded-lg shadow-sm w-96 p-5 flex flex-col justify-center items-center font-medium text-black text-center"
+	class="bg-white border border-gray-200 rounded-lg shadow-sm w-96 p-5 flex flex-col justify-center items-stretch font-medium text-black text-center"
 >
 	{#if hasData}
 		<p class="text-xl">{label}</p>
 		<p>{description}</p>
-		<p class="text-4xl font-bold text-black py-2">{value}</p>
+		{#if typeof value === 'number'}
+			<p class="text-4xl font-bold text-black py-2">{value}</p>
+		{:else}
+			<div class="flex flex-row items-center gap-2">
+				<p class="flex-1 text-right text-lg font-bold text-black py-2">{value?.[0]}</p>
+				<p class="text-4xl font-bold text-black py-2">{value?.[1]}</p>
+				<p class="flex-1 text-left text-lg font-bold text-black py-2">{value?.[2]}</p>
+			</div>
+		{/if}
 		<p>{aces}</p>
 		<p>{concelho}</p>
 		<p>{freguesia}</p>

@@ -22,7 +22,7 @@
 		return (millis - data.minDate.valueOf()) / 86400000;
 	};
 
-	const getPixelData = (type: DataType): number[][] => {
+	const getPixelData = (type: DataType): ([number, number, number] | number)[][] => {
 		return data.pixels[type];
 	};
 

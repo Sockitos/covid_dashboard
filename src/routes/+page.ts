@@ -34,7 +34,7 @@ export async function load(e: PageLoadEvent) {
 
 	const chart = (await (await e.fetch('data/chart.json')).json()).data as number[];
 	const chart2 = (await (await e.fetch('data/chart2.json')).json()).data as ChartData[];
-	const inc = (await (await e.fetch('data/inc.json')).json()).data as number[][];
+	const inc = (await (await e.fetch('data/inc.json')).json()).data as [number, number, number][][];
 	const iqd = (await (await e.fetch('data/iqd.json')).json()).data as number[][];
 	const prob = (await (await e.fetch('data/prob.json')).json()).data as number[][];
 	const incTrad = (await (await e.fetch('data/inc_trad.json')).json()).data as number[][];
