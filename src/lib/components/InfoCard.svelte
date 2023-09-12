@@ -18,10 +18,12 @@
 		{#if typeof value === 'number'}
 			<p class="text-4xl font-bold text-black py-2">{value}</p>
 		{:else}
-			<div class="flex flex-row items-center gap-2">
-				<p class="flex-1 text-right text-lg font-bold text-black py-2">{value?.[0]}</p>
+			<div class="flex flex-row items-end gap-2">
+				<div class="flex-1" />
 				<p class="text-4xl font-bold text-black py-2">{value?.[1]}</p>
-				<p class="flex-1 text-left text-lg font-bold text-black py-2">{value?.[2]}</p>
+				<p class="flex-1 text-left text-base font-bold text-black py-2">
+					[{value?.[0]}, {value?.[2]}]
+				</p>
 			</div>
 		{/if}
 		<p>{aces}</p>
