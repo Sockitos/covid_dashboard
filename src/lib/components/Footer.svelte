@@ -2,12 +2,13 @@
 	import { base } from '$app/paths';
 </script>
 
-<footer class="h-full">
-	<div class="bg-white h-full flex flex-row space-x-20 p-6 justify-center">
-		<img src="{base}/logos/ist.svg" alt="IST" class="h-full" />
-		<img src="{base}/logos/cerena.svg" alt="CERENA" class="h-full" />
-		<img src="{base}/logos/iti.svg" alt="ITI" class="h-full" />
-		<img src="{base}/logos/insa.png" alt="INSA" class="h-full" />
-		<img src="{base}/logos/ipst.png" alt="IPST" class="h-full" />
-	</div>
+<footer class="bg-white flex flex-row flex-wrap gap-20 p-5 items-center justify-center">
+	<img src="{base}/logos/ist.svg" alt="IST" class="h-10" />
+	<img src="{base}/logos/cerena.svg" alt="CERENA" class="h-10" />
+	<img src="{base}/logos/iti.svg" alt="ITI" class="h-10" />
+	<img src="{base}/logos/cegist.svg" alt="CEGIST" class="h-10" />
+	<img src="{base}/logos/fct.svg" alt="FCT" class="h-10" />
+	<img src="{base}/logos/dgs.png" alt="DGS" class="h-10" />
+	<img src="{base}/logos/insa.png" alt="INSA" class="h-10" />
+	<img src="{base}/logos/ipst.png" alt="IPST" class="h-10" />
 </footer>
