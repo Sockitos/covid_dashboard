@@ -16,7 +16,7 @@
 			center: [-9.469218750000001, 39.56827914916011],
 			zoom: 6,
 			minZoom: 6,
-			maxZoom: 10
+			maxZoom: 15
 		});
 		map.dragRotate.disable();
 		map.touchZoomRotate.disableRotation();
