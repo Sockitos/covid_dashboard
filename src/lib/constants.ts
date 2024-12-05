@@ -41,7 +41,6 @@ export const configs: MapConfigs = {
 			},
 			{
 				value: 0,
-				label: '0',
 				color: '#ffff80'
 			}
 		],
@@ -61,7 +60,6 @@ export const configs: MapConfigs = {
 			},
 			{
 				value: 0,
-				label: '0',
 				color: '#ffff80'
 			}
 		],
@@ -81,7 +79,6 @@ export const configs: MapConfigs = {
 			},
 			{
 				value: 0,
-				label: '0',
 				color: '#ffff80'
 			}
 		],
