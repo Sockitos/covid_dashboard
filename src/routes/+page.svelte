@@ -13,6 +13,7 @@
 	import Slider from '$lib/components/Slider.svelte';
 	import Toggle from '$lib/components/Toggle.svelte';
 	import TypeSelector from '$lib/components/TypeSelector.svelte';
+	import SearchField from '$lib/components/SearchField.svelte';
 	import { DataType, configs, type ChartData, type MapConfig } from '$lib/constants';
 
 	export let data;
@@ -105,13 +106,15 @@
 				bind:selectedId={selectedACES}
 				bind:hoveredLabel={hACES}
 			/>
+			<SearchField />
+
 		</Map>
-		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-8 w-96">
+		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-4 w-96">
 			{#if !isTrad}
 				<TypeSelector bind:value={type} />
 			{/if}
 			<Slider bind:value={opacity} />
-			<div class="flex flex-col space-y-4">
+			<div class="flex flex-col space-y-1">
 				<Toggle label="ACES" bind:value={distritos} />
 				<Toggle label="Concelhos" bind:value={concelhos} />
 				<Toggle label="Freguesias" bind:value={freguesias} />
