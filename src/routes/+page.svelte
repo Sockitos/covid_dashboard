@@ -122,7 +122,7 @@
 			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
 			<LinesChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chart2Data} />
 		</div>
-		<div class="absolute z-10 bottom-5 left-0 right-0 mx-auto w-[48rem]">
+		<div class="absolute z-10 bottom-2 left-0 right-0 mx-auto w-[42rem]">
 			<DateSelector minDate={data.minDate} maxDate={data.maxDate} bind:date />
 		</div>
 		<div class="absolute z-10 bottom-5 right-5">
