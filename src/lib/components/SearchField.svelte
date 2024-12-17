@@ -20,9 +20,10 @@
     const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken, 
         mapboxgl: mapboxgl, 
-        placeholder: 'Search for places', 
-        proximity: { longitude: -74.5, latitude: 40 }, 
-    });
+        placeholder: 'Search for places in Portugal', 
+        bbox: [-9.5, 36.8, -6.2, 42.2],
+        proximity: { longitude: -8.0, latitude: 39.5 } 
+});
   
     map.addControl(geocoder, 'top-left');
 
