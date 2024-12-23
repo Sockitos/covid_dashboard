@@ -50,16 +50,6 @@
             "properties": {
                 "title": "Instituto Português de Oncologia de Lisboa Francisco Gentil (IPO Lisboa)"
             }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-3.703464, 40.336687]
-            },
-            "properties": {
-                "title": "Teste"
-            }
         }
     ]
 }

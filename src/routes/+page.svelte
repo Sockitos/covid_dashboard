@@ -14,6 +14,7 @@
 	import Toggle from '$lib/components/Toggle.svelte';
 	import TypeSelector from '$lib/components/TypeSelector.svelte';
 	import SearchField from '$lib/components/SearchField.svelte';
+	import PoisLayer from '$lib/components/Map/PoisLayer.svelte';
 	import { DataType, configs, type ChartData, type MapConfig } from '$lib/constants';
 
 	export let data;
@@ -107,6 +108,7 @@
 				bind:hoveredLabel={hACES}
 			/>
 			<SearchField />
+			<PoisLayer />
 
 		</Map>
 		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-4 w-96">
