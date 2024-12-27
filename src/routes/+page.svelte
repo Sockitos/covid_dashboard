@@ -120,14 +120,15 @@
 				<TypeSelector bind:value={type} />
 			{/if}
 			<Slider bind:value={opacity} />
-			<div class="flex flex-col space-y-1">
-				<Toggle label="ACES" bind:value={distritos} />
-				<Toggle label="Concelhos" bind:value={concelhos} />
-				<Toggle label="Freguesias" bind:value={freguesias} />
-			</div>
-			<div class="flex flex-col space-y-1">
-				<Toggle label="Hospitais" bind:value={hospitais} />
-
+			<div class="flex flex-row space-x-4">
+				<div class="flex flex-col space-y-1">
+					<Toggle label="ACES" bind:value={distritos} />
+					<Toggle label="Concelhos" bind:value={concelhos} />
+					<Toggle label="Freguesias" bind:value={freguesias} />
+				</div>
+				<div class="flex flex-col space-y-1">
+					<Toggle label="Hospitais" bind:value={hospitais} />
+				</div>
 			</div>
 			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
 			<LinesChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chart2Data} />
