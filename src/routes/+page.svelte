@@ -109,6 +109,8 @@
 				bind:hoveredLabel={hACES}
 			/>
 			<PoisLayer
+			    id="hospitais"
+				url={base + '/data/hospitais.json'}
 				visibility={hospitais}
 			/>
 

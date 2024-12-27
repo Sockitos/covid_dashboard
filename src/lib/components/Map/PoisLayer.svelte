@@ -2,18 +2,16 @@
     import { onMount } from 'svelte';
     import { getContext } from 'svelte';
     import { key, mapboxgl, type MBMapContext } from './mapboxgl';
-    import type { FeatureCollection } from 'geojson';
-    import pois from './map-pois.json';
 
-    const poisData: FeatureCollection = pois as FeatureCollection;
-
-    
     const { getMap } = getContext<MBMapContext>(key);
 
+    export let id: string;
+    export let url: string;
 	export let visibility: boolean = false;
 
 	let initialized: boolean = false;
-	let source: mapboxgl.AnySourceData;
+
+    let layerId = 'poi-layer-' + id;
 
     const map = getMap()!;
 
@@ -29,11 +27,11 @@
     function initialize() {
         map.addSource('pois', {
             type: 'geojson',
-            data: poisData
+            data: url
         });
 
         map.addLayer({
-            id: 'poi-layer',
+            id: layerId,
             type: 'symbol',
             source: 'pois',
             layout: {
@@ -49,9 +47,9 @@
             }
         });
 
-        map.moveLayer('poi-layer');
+        map.moveLayer(layerId);
         
-        map.on('mouseenter', 'poi-layer', (e) => {
+        map.on('mouseenter', layerId, (e) => {
             map.getCanvas().style.cursor = 'pointer';
 
             const feature = e.features?.[0];
@@ -66,7 +64,7 @@
             }
         });
 
-        map.on('mouseleave', 'poi-layer', () => {
+        map.on('mouseleave', layerId, () => {
             map.getCanvas().style.cursor = '';
 
             const popups = document.getElementsByClassName('mapboxgl-popup');
@@ -86,7 +84,7 @@
 
     $: {
         if (initialized) {
-            map.setLayoutProperty('poi-layer', 'visibility', visibility ? 'visible' : 'none');
+            map.setLayoutProperty(layerId, 'visibility', visibility ? 'visible' : 'none');
         }
     }
 </script>
