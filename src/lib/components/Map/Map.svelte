@@ -2,7 +2,6 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 	import { setContext } from 'svelte';
 	import { key, mapboxgl, type MBMapContext } from './mapboxgl';
-	import { addPOIsToMap } from './poisLoader';
 
 	let map: mapboxgl.Map | undefined;
 
@@ -21,12 +20,6 @@
 		});
 		map.dragRotate.disable();
 		map.touchZoomRotate.disableRotation();
-
-		map.on('load', () => {
-			if (map) {
-				addPOIsToMap(map);
-			}
-		});
 
 		return {
 			destroy() {
