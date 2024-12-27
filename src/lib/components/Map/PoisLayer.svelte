@@ -9,6 +9,12 @@
 
     
     const { getMap } = getContext<MBMapContext>(key);
+
+	//export let visiblity: boolean = false;
+
+	let initialized: boolean = false;
+	let source: mapboxgl.AnySourceData;
+
     const map = getMap()!;
 
 
@@ -20,6 +26,7 @@
     });
 
 
+    function initialize() {
         map.addSource('pois', {
             type: 'geojson',
             data: poisData
@@ -67,4 +74,13 @@
                 popups[0].remove();
             }
         });
+
+        initialized = true;
+    }
+
+    $: {
+        if (!initialized) {
+			map.on('load', initialize);
+		}
+    }
 </script>
