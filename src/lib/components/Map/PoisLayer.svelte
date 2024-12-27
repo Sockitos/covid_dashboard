@@ -10,7 +10,7 @@
     
     const { getMap } = getContext<MBMapContext>(key);
 
-	//export let visiblity: boolean = false;
+	export let visibility: boolean = false;
 
 	let initialized: boolean = false;
 	let source: mapboxgl.AnySourceData;
@@ -82,5 +82,11 @@
         if (!initialized) {
 			map.on('load', initialize);
 		}
+    }
+
+    $: {
+        if (initialized) {
+            map.setLayoutProperty('poi-layer', 'visibility', visibility ? 'visible' : 'none');
+        }
     }
 </script>

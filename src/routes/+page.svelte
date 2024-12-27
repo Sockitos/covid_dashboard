@@ -56,6 +56,7 @@
 	let distritos = true;
 	let concelhos = isTrad;
 	let freguesias = false;
+	let hospitais = false;
 	let opacity = 1;
 
 	let hValue: number | null = null;
@@ -107,9 +108,12 @@
 				bind:selectedId={selectedACES}
 				bind:hoveredLabel={hACES}
 			/>
-			<SearchField />
-			<PoisLayer />
+			<PoisLayer
+				visibility={hospitais}
+			/>
 
+		
+			<SearchField />
 		</Map>
 		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-4 w-96">
 			{#if !isTrad}
@@ -120,6 +124,10 @@
 				<Toggle label="ACES" bind:value={distritos} />
 				<Toggle label="Concelhos" bind:value={concelhos} />
 				<Toggle label="Freguesias" bind:value={freguesias} />
+			</div>
+			<div class="flex flex-col space-y-1">
+				<Toggle label="Hospitais" bind:value={hospitais} />
+
 			</div>
 			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
 			<LinesChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chart2Data} />
