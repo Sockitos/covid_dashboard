@@ -65,7 +65,7 @@
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [-9.4223, 38.6969]
+                "coordinates": [-9.4217, 38.6958]
             },
             "properties": {
                 "title": "Hospital Dr. José de Almeida - Cascais"
@@ -75,7 +75,7 @@
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [-7.9135, 40.661]
+                "coordinates": [-7.9135, 40.6610]
             },
             "properties": {
                 "title": "Centro Hospitalar Tondela-Viseu - Hospital de São Teotónio"
@@ -165,7 +165,7 @@
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [-8.5833, 41.767]
+                "coordinates": [-8.6822, 41.767]
             },
             "properties": {
                 "title": "Unidade Local de Saúde do Alto Minho - Unidade de Ponte de Lima"
@@ -205,7 +205,7 @@
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [-9.1393, 38.7266]
+                "coordinates": [-9.1379, 38.7327]
             },
             "properties": {
                 "title": "Hospital Dona Estefânia"
@@ -296,7 +296,7 @@
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-8.6216, 41.1466]
+                    "coordinates": [-8.6136, 41.1466]
                 },
                 "properties": {
                     "title": "Centro Hospitalar Universitário do Porto - Hospital de Santo António"
@@ -306,7 +306,7 @@
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [-8.6046, 41.1792]
+                    "coordinates": [-8.6052, 41.1579]
                 },
                 "properties": {
                     "title": "Instituto Português de Oncologia do Porto Francisco Gentil"
