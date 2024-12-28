@@ -12,6 +12,7 @@
 	let initialized: boolean = false;
 
     let layerId = 'poi-layer-' + id;
+    let sourceId = 'pois-source-' + id;
 
     const map = getMap()!;
 
@@ -25,7 +26,7 @@
 
 
     function initialize() {
-        map.addSource('pois', {
+        map.addSource(sourceId, {
             type: 'geojson',
             data: url
         });
@@ -33,7 +34,7 @@
         map.addLayer({
             id: layerId,
             type: 'symbol',
-            source: 'pois',
+            source: sourceId,
             layout: {
                 'icon-image': 'marker',
                 'icon-size': 2, /*[

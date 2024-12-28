@@ -1,0 +1,25 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-9.1602, 39.7484]
+            },
+            "properties": {
+                "title": "Escola Teste de Santa Maria"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-9.1411, 39.7168]
+            },
+            "properties": {
+                "title": "Escola Testr Centro Hospitalar Universitário de Lisboa Central"
+            }
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-9.1602, 40.7484]
+            },
+            "properties": {
+                "title": "Repouso Teste de Santa Maria"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-9.1411, 40.7168]
+            },
+            "properties": {
+                "title": "Reepouso Testr Centro Hospitalar Universitário de Lisboa Central"
+            }
+        }
+    ]
+}

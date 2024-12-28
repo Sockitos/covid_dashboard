@@ -57,6 +57,8 @@
 	let concelhos = isTrad;
 	let freguesias = false;
 	let hospitais = false;
+	let escolas = false;
+	let casasDeRepouso = false;
 	let opacity = 1;
 
 	let hValue: number | null = null;
@@ -113,6 +115,16 @@
 				url={base + '/data/hospitais.json'}
 				visibility={hospitais}
 			/>
+			<PoisLayer
+			    id="escolas"
+				url={base + '/data/escolas.json'}
+				visibility={escolas}
+			/>
+			<PoisLayer
+			    id="casasDeRepouso"
+				url={base + '/data/casas-de-repouso.json'}
+				visibility={casasDeRepouso}
+			/>
 
 		
 			<SearchField />
@@ -130,6 +142,8 @@
 				</div>
 				<div class="flex flex-col space-y-1">
 					<Toggle label="Hospitais" bind:value={hospitais} />
+					<Toggle label="Escolas" bind:value={escolas} />
+					<Toggle label="Casas de repouso" bind:value={casasDeRepouso} />
 				</div>
 			</div>
 			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
