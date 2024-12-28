@@ -8,6 +8,7 @@
     export let id: string;
     export let url: string;
 	export let visibility: boolean = false;
+    export let icon: string;
 
 	let initialized: boolean = false;
 
@@ -36,8 +37,8 @@
             type: 'symbol',
             source: sourceId,
             layout: {
-                'icon-image': 'marker',
-                'icon-size': 2, /*[
+                'icon-image': icon,
+                'icon-size': 1, /*[
                     'interpolate', ['linear'], ['zoom'],
                     6, 0.5,  
                     15, 1.5  

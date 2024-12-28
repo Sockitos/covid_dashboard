@@ -114,16 +114,19 @@
 			    id="hospitais"
 				url={base + '/data/hospitais.json'}
 				visibility={hospitais}
+				icon="hospital"
 			/>
 			<PoisLayer
 			    id="escolas"
 				url={base + '/data/escolas.json'}
 				visibility={escolas}
+				icon="college"
 			/>
 			<PoisLayer
 			    id="casasDeRepouso"
 				url={base + '/data/casas-de-repouso.json'}
 				visibility={casasDeRepouso}
+				icon="lodging"
 			/>
 
 		
