@@ -55,6 +55,9 @@
 	let distritos = true;
 	let concelhos = isTrad;
 	let freguesias = false;
+	let hospitais = false;
+	let escolas = false;
+	let casasDeRepouso = false;
 	let opacity = 1;
 
 	let hValue: number | null = null;
@@ -106,18 +109,44 @@
 				bind:selectedId={selectedACES}
 				bind:hoveredLabel={hACES}
 			/>
-			<SearchField />
+			<PoisLayer
+			    id="hospitais"
+				url={base + '/data/hospitais.json'}
+				visibility={hospitais}
+				icon="hospital"
+			/>
+			<PoisLayer
+			    id="escolas"
+				url={base + '/data/escolas.json'}
+				visibility={escolas}
+				icon="college"
+			/>
+			<PoisLayer
+			    id="casasDeRepouso"
+				url={base + '/data/casas-de-repouso.json'}
+				visibility={casasDeRepouso}
+				icon="lodging"
+			/>
 
+		
+			<SearchField />
 		</Map>
 		<div class="absolute z-10 top-5 left-5 flex flex-col space-y-4 w-96">
 			{#if !isTrad}
 				<TypeSelector bind:value={type} />
 			{/if}
 			<Slider bind:value={opacity} />
-			<div class="flex flex-col space-y-1">
-				<Toggle label="ACES" bind:value={distritos} />
-				<Toggle label="Concelhos" bind:value={concelhos} />
-				<Toggle label="Freguesias" bind:value={freguesias} />
+			<div class="flex flex-row space-x-4">
+				<div class="flex flex-col space-y-1">
+					<Toggle label="ACES" bind:value={distritos} />
+					<Toggle label="Concelhos" bind:value={concelhos} />
+					<Toggle label="Freguesias" bind:value={freguesias} />
+				</div>
+				<div class="flex flex-col space-y-1">
+					<Toggle label="Hospitais" bind:value={hospitais} />
+					<Toggle label="Escolas" bind:value={escolas} />
+					<Toggle label="Casas de repouso" bind:value={casasDeRepouso} />
+				</div>
 			</div>
 			<LineChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chartData} />
 			<LinesChart minDate={data.minDate} maxDate={data.maxDate} {date} data={chart2Data} />
